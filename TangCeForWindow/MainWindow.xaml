@@ -1,0 +1,39 @@
+﻿<Window x:Class="TangCeForWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HKZControlLibrary;assembly=HKZControlLibrary"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="{x:Null}"
+        Loaded="Window_Loaded"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="Grid_Body"
+              ManipulationDelta="Grid_Body_ManipulationDelta"
+              ManipulationCompleted="Grid_Body_ManipulationCompleted"
+              IsManipulationEnabled="True">
+            <Grid x:Name="Grid_Bk" Background="White"></Grid>
+            <InkCanvas Name="InkCanvasBoard" Background="#01FFFFFF" 
+                       StrokeCollected="InkCanvasBoard_StrokeCollected" 
+                       SelectionMoved="InkCanvasBoard_Selection"
+                       SelectionResized="InkCanvasBoard_Selection"
+                       StrokeErased="InkCanvasBoard_StrokeErased"/>
+        </Grid>
+
+        <Canvas x:Name="CanvasControlPanel"
+                PreviewMouseDown="CanvasControlPanel_PreviewMouseDown"
+                PreviewMouseUp="CanvasControlPanel_PreviewMouseUp"
+                PreviewMouseMove="CanvasControlPanel_PreviewMouseMove">
+            <StackPanel x:Name="StackPanel_Box" Canvas.Right="0" Orientation="Horizontal" FlowDirection="LeftToRight" 
+                        Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1, AncestorType={x:Type Canvas}}, Path=ActualHeight}">
+                <Button BorderBrush="{x:Null}" Background="{x:Null}" Height="50" Content=">>"></Button>
+                <local:StrokeLayerListView x:Name="StrokeLayerListView_Menu" Width="Auto" SelectionChanged="StrokeLayerListView_Menu_SelectionChanged"/>
+            </StackPanel>
+            <local:ToolsBox x:Name="ToolsBox"/>
+        </Canvas>
+        
+    </Grid>
+</Window>
